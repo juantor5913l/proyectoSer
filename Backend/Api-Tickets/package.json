@@ -9,7 +9,7 @@
     "start": "node index.js"
   },
   "keywords": [],
-  "author": "WilliamMaldonado",
+  "author": "Sebastian Torres",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",

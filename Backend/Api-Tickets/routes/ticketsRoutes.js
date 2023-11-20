@@ -1,16 +1,12 @@
+// En tu archivo ticketsRoutes.js
 import express from "express";
-import {
-  agregar,
-  listar,
-  eliminar,
-  editar,
-  listarUno,
-} from "../controllers/ticketController.js";
+import { listar, listarUno, agregar, editar, eliminar, listarPorCliente } from "../controllers/ticketController.js";
 
 const router = express.Router();
 
 router.get("/", listar);
 router.get("/:id", listarUno);
+router.get("/cliente/:idCliente", listarPorCliente);
 router.post("/", agregar);
 router.put("/:id", editar);
 router.delete("/:id", eliminar);

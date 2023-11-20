@@ -6,43 +6,43 @@ const usuarioSchema = mongoose.Schema(
     idRol: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Rol",
-      require: true,
-      trimp: true,
+      required: true,
+      trim: true,
     },
     nombresUsuario: {
       type: String,
-      require: true,
+      required: true,
       trim: true,
     },
     celularUsuario: {
       type: Number,
-      require: true,
+      required: true,
       trim: true,
     },
     correoUsuario: {
       type: String,
-      require: true,
+      required: true,
       trim: true,
     },
     direccionUsuario: {
       type: String,
-      require: false,
+      required: false,
       trim: true,
     },
     usuarioAcceso: {
       type: String,
-      require: true,
+      required: true,
       trim: true,
       unique: true,
     },
     claveAcceso: {
       type: String,
-      require: true,
+      required: true,
       trim: true,
     },
     estadoUsuario: {
       type: Number,
-      require: true,
+      required: true,
       trim: true,
     },
   },
@@ -54,6 +54,7 @@ const usuarioSchema = mongoose.Schema(
 usuarioSchema.pre("save", async function (next) {
   const salt = await bcrypt.genSalt(10);
   this.claveAcceso = await bcrypt.hash(this.claveAcceso, salt);
+  next();
 });
 
 usuarioSchema.methods.comprobarClave = async function (claveFormulario) {
@@ -61,4 +62,5 @@ usuarioSchema.methods.comprobarClave = async function (claveFormulario) {
 };
 
 const Usuario = mongoose.model("Usuario", usuarioSchema);
+
 export default Usuario;

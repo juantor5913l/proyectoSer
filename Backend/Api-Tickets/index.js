@@ -44,7 +44,8 @@ app.use("/api/roles", rolesRoutes);
 app.use("/api/usuarios", usuariosRoutes);
 app.use("/api/categorias", categoriasRoutes);
 app.use("/api/tickets", ticketsRoutes);
-app.use("/api/restickets", respuestaTicketsRoutes);
+app.use("/api/tickets/crear-tickets", ticketsRoutes);
+app.use("/api/tickets/:id/responder", respuestaTicketsRoutes);
 app.use("/api/imagenesrespuestas", imagenRespuestasRoutes);
 
 /* Una forma de establecer el número de puerto para el servidor. */

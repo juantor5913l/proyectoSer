@@ -14,16 +14,7 @@ const ticketSchema = mongoose.Schema(
       require: true,
       trimp: true,
     },
-    horaTicket: {
-      type: Date,
-      require: true,
-      trim: true,
-    },
-    fechaTicket: {
-      type: Date,
-      require: true,
-      trim: true,
-    },
+    
     asuntoTicket: {
       type: String,
       require: true,
