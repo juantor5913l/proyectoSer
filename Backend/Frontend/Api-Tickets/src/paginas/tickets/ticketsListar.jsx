@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from "react";
-import LogoPrueba from '../../assets/img/logo2.jpg';
+import ContentHeader from "../../componentes/contentHeader.jsx";
+import Navbar from "../../componentes/navbar.jsx";
+import SidebarContainer from "../../componentes/sidebarContainer.jsx";
 import APIInvoke from "../../helpers/APIInvoke.js";
 import { Link, useNavigate } from "react-router-dom";
 import mensajeConfirmacion from "../../helpers/mensajes.js";
+import Logo2 from "../../assets/img/logo2.jpg";
 
 const TicketsCliente = () => {
   const navigate = useNavigate();
+  const cerrarSesion = () => {
+    localStorage.removeItem("iduser");
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("rol");
+
+    mensajeConfirmacion("success", "Sesión finalizada correctamente");
+
+    navigate("/");
+  };
   const [arregloTickets, setArregloTickets] = useState([]);
   const clienteId = localStorage.getItem("iduser");
 
@@ -17,6 +30,14 @@ const TicketsCliente = () => {
     } catch (error) {
       console.error("Error al obtener los tickets:", error);
     }
+  };
+
+  const verDetalles = (id) => {
+    navigate(`/tickets-admin/${id}`);
+  };
+
+  const responderTicket = (id) => {
+    navigate(`/responder-ticket/${id}`);
   };
 
   const borrar = async (e, id) => {
@@ -33,7 +54,7 @@ const TicketsCliente = () => {
     try {
       const response = await APIInvoke.invokeDELETE(`/api/tickets/${id}`);
 
-      if (response.status === 200) {
+      if (response.ok === "SI") {
         mensajeConfirmacion("success", response.msg);
         listadoTickets(); // Actualizar la lista de tickets después de la eliminación exitosa
       } else {
@@ -48,25 +69,18 @@ const TicketsCliente = () => {
   useEffect(() => {
     listadoTickets();
   }, []);
-  const cerrarSesion = () => {
-    localStorage.removeItem("iduser");
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    localStorage.removeItem("rol");
 
-    mensajeConfirmacion("success", "Sesión finalizada correctamente");
-
-    navigate("/");
-  };
-  return (
-    <main id="main" className="main">
+  
+    return (
+      <main id="main" className="main">
+        <main id="main" className="main">
       <div>
   <div className="min-height-300 bg-primary position-absolute w-100" />
   <aside className="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div className="sidenav-header">
       <i className="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav" />
       <a className="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
-      <img src={LogoPrueba}  className="navbar-brand-img h-100" alt="main_logo" />
+      <img src={Logo2}  className="navbar-brand-img h-100" alt="main_logo" />
         <span className="ms-1 font-weight-bold">Argon Dashboard 2</span>
       </a>
     </div>
@@ -118,13 +132,13 @@ const TicketsCliente = () => {
                   <div className="numbers">
                     <p className="text-sm mb-0 text-uppercase font-weight-bold">Tickets</p>
                           <span className="text-muted small pt-2 ps-1">
-                            <Link to={"/tickets-empleado"}>Listado de tickets</Link>
+                            <Link to={"/tickets-cliente/${clienteId}`"}>Listado de tickets</Link>
                           </span>
                   </div>
                 </div>
                 <div className="col-4 text-end">
                   <div className="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-                    <i className="ni ni-world text-lg opacity-10" aria-hidden="true" />
+                  <i class="bi bi-ticket-perforated-fill"></i>
                   </div>
                 </div>
               </div>
@@ -148,6 +162,7 @@ const TicketsCliente = () => {
         
          </div>
          </div>
+      {/* Main content */}
       <section className="section">
         <div className="row">
           <div className="col-lg-12">
@@ -156,7 +171,7 @@ const TicketsCliente = () => {
                 <h5 className="card-title">Listado Tickets</h5>
                 <div className="row mb-3">
                   <div className="col-lg-12">
-                    <Link to={"/tickets-crearE"} className="btn btn-primary">
+                    <Link to={"/tickets-crear"} className="btn btn-primary">
                       Crear
                     </Link>
                   </div>
@@ -193,7 +208,7 @@ const TicketsCliente = () => {
                             cursor: "pointer",
                             textDecoration: "underline",
                           }}
-                          
+                          onClick={() => verDetalles(elemento._id)}
                         >
                           {elemento._id}
                         </td>
@@ -232,7 +247,13 @@ const TicketsCliente = () => {
                               title="Borrar"
                             ></i>
                           </button>
-                          
+                          &nbsp;
+                          <button
+                            onClick={() => responderTicket(elemento._id)}
+                            className="btn btn-success btn-sm"
+                          >
+                          Responder
+                        </button>
                         </td>
                       </tr>
                     ))}
@@ -244,7 +265,8 @@ const TicketsCliente = () => {
         </div>
       </section>
     </main>
-  );
-};
-
-export default TicketsCliente;
+      </main>
+    );
+  };
+  
+  export default TicketsCliente;

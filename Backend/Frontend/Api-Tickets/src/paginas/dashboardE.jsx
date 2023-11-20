@@ -7,6 +7,7 @@ import '../assets/css/nucleo-icons.css'
 import '../assets/css/argon-dashboard.css'
 import '../assets/css/argon-dashboard.css.map'
 import '../assets/css/argon-dashboard.min.css'
+import LogoPrueba from '../assets/img/logo2.jpg';
 
 const DashBoardE = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const DashBoardE = () => {
     <div className="sidenav-header">
       <i className="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav" />
       <a className="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
-        <img src="./assets/img/logo-ct-dark.png" className="navbar-brand-img h-100" alt="main_logo" />
+      <img src={LogoPrueba}  className="navbar-brand-img h-100" alt="main_logo" />
         <span className="ms-1 font-weight-bold">Argon Dashboard 2</span>
       </a>
     </div>
@@ -83,17 +84,18 @@ const DashBoardE = () => {
           <div className="card">
             <div className="card-body p-3">
               <div className="row">
-                <div className="col-8">
+              <div className="col-8">
                   <div className="numbers">
-                    <p className="text-sm mb-0 text-uppercase font-weight-bold">Tickets</p>
-                          <span className="text-muted small pt-2 ps-1">
-                            <Link to={"/tickets-empleado"}>Listado de tickets</Link>
-                          </span>
+                    <p className="text-sm mb-0 text-uppercase font-weight-bold">Bandeja de entrada</p>
+                    <p className="mb-0">
+                      <span className="text-success text-sm font-weight-bolder"></span> 
+                      <Link to={"/tickets-empleado"}>ver</Link>
+                    </p>
                   </div>
                 </div>
                 <div className="col-4 text-end">
-                  <div className="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-                    <i className="ni ni-world text-lg opacity-10" aria-hidden="true" />
+                  <div className="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
+                  <i class="bi bi-inbox-fill"></i>
                   </div>
                 </div>
               </div>

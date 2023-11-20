@@ -95,7 +95,7 @@ const DashBoard = () => {
                 </div>
                 <div className="col-4 text-end">
                   <div className="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                    <i className="ni ni-money-coins text-lg opacity-10" aria-hidden="true" />
+                  <i class="bi bi-person-rolodex"></i>
                   </div>
                 </div>
               </div>
@@ -116,7 +116,7 @@ const DashBoard = () => {
                 </div>
                 <div className="col-4 text-end">
                   <div className="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-                    <i className="ni ni-world text-lg opacity-10" aria-hidden="true" />
+                  <i class="bi bi-ticket-perforated-fill"></i>
                   </div>
                 </div>
               </div>
@@ -159,7 +159,7 @@ const DashBoard = () => {
                 </div>
                 <div className="col-4 text-end">
                   <div className="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
-                    <i className="ni ni-cart text-lg opacity-10" aria-hidden="true" />
+                  <i class="bi bi-person-plus-fill"></i>
                   </div>
                 </div>
               </div>

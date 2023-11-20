@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import APIInvoke from "../../helpers/APIInvoke.js";
 import { Link, useNavigate } from "react-router-dom"; // Importa useNavigate
 import mensajeConfirmacion from "../../helpers/mensajes.js";
+import LogoPrueba from '../../assets/img/logo2.jpg';
 
 const TicketsEmpleado = () => {
   const [arregloTickets, setArregloTickets] = useState([]);
@@ -78,7 +79,7 @@ const TicketsEmpleado = () => {
     <div className="sidenav-header">
       <i className="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav" />
       <a className="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
-        <img src="./assets/img/logo-ct-dark.png" className="navbar-brand-img h-100" alt="main_logo" />
+      <img src={LogoPrueba}  className="navbar-brand-img h-100" alt="main_logo" />
         <span className="ms-1 font-weight-bold">Argon Dashboard 2</span>
       </a>
     </div>
@@ -136,7 +137,7 @@ const TicketsEmpleado = () => {
                 </div>
                 <div className="col-4 text-end">
                   <div className="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-                    <i className="ni ni-world text-lg opacity-10" aria-hidden="true" />
+                  <i class="bi bi-ticket-fill"></i>
                   </div>
                 </div>
               </div>
@@ -225,26 +226,8 @@ const TicketsEmpleado = () => {
                           {elemento.estadoTicket}
                         </td>
                         <td style={{ textAlign: "center" }}>
-                          <Link
-                            to={`/tickets-editar/${elemento._id}`}
-                            className="btn btn-primary btn-sm"
-                          >
-                            <i
-                              className="bi bi-pencil-square"
-                              title="Editar"
-                            ></i>
-                          </Link>
-                          &nbsp;
-                          <button
-                            onClick={(e) => borrar(e, elemento._id)}
-                            className="btn btn-danger btn-sm"
-                          >
-                            <i
-                              className="bi bi-trash-fill"
-                              title="Borrar"
-                            ></i>
-                          </button>
-                          &nbsp;
+                          
+                          
                           <button
                             onClick={() => responderTicket(elemento._id)}
                             className="btn btn-success btn-sm"
