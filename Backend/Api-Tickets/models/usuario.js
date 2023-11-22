@@ -7,7 +7,6 @@ const usuarioSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Rol",
       required: true,
-      trim: true,
     },
     nombresUsuario: {
       type: String,
@@ -17,16 +16,15 @@ const usuarioSchema = mongoose.Schema(
     celularUsuario: {
       type: Number,
       required: true,
-      trim: true,
     },
     correoUsuario: {
       type: String,
       required: true,
       trim: true,
+      unique: true,
     },
     direccionUsuario: {
       type: String,
-      required: false,
       trim: true,
     },
     usuarioAcceso: {
@@ -43,6 +41,10 @@ const usuarioSchema = mongoose.Schema(
     estadoUsuario: {
       type: Number,
       required: true,
+    },
+    tipoUsuario: {
+      type: String, // Puedes ajustar el tipo según tus necesidades
+      required: true,
       trim: true,
     },
   },
@@ -51,12 +53,21 @@ const usuarioSchema = mongoose.Schema(
   }
 );
 
+// Resto del código...
+
+
+// Uso de arrow function para mantener el contexto 'this'
 usuarioSchema.pre("save", async function (next) {
-  const salt = await bcrypt.genSalt(10);
-  this.claveAcceso = await bcrypt.hash(this.claveAcceso, salt);
-  next();
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.claveAcceso = await bcrypt.hash(this.claveAcceso, salt);
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
+// Uso de async/await para mejorar la legibilidad
 usuarioSchema.methods.comprobarClave = async function (claveFormulario) {
   return await bcrypt.compare(claveFormulario, this.claveAcceso);
 };

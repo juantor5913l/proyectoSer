@@ -25,6 +25,7 @@ import TicketsEmpleado from './paginas/tickets/ticketsEmpleado';
 import TicketsCrearE from "./paginas/tickets/ticketsCrearE";
 import TicketsCrearC from "./paginas/tickets/ticketsCrearC";
 import TicketsCliente from "./paginas/tickets/ticketsListar";
+import ChatComponent from "./paginas/tickets/responderTickets";
 
 function App() {
   return (
@@ -57,6 +58,8 @@ function App() {
           <Route path="/tickets-crearE" element={<TicketsCrearE />} />
           <Route path="/tickets-crearC" element={<TicketsCrearC />} />
           <Route path="/tickets-cliente/:clienteId" element={<TicketsCliente />} />
+          <Route path="/chat/:id" element={<ChatComponent />} />
+
         </Routes>
       </Router>
     </Fragment>

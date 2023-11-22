@@ -12,6 +12,7 @@ const CrearCuenta = () => {
     correo: "",
     nombreusuario: "",
     clave: "",
+    tipoUsuario:'Cliente',
     estado: config.api.estadoUsuarioActivo,
   });
 
@@ -41,6 +42,7 @@ const CrearCuenta = () => {
       correoUsuario: usuario.correo,
       usuarioAcceso: usuario.nombreusuario,
       claveAcceso: usuario.clave,
+      tipoUsuario: usuario.tipoUsuario,
       estadoUsuario: usuario.estado,
     };
     const response = await APIInvoke.invokePOST(
@@ -57,6 +59,7 @@ const CrearCuenta = () => {
         correo: "",
         nombreusuario: "",
         clave: "",
+        tipoUsuario:'Cliente',
       });
     } else {
       mensajeConfirmacion("error", response.msg);

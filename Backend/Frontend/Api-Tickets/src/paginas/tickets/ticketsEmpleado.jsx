@@ -68,7 +68,7 @@ const TicketsEmpleado = () => {
 
   const responderTicket = (id) => {
     // Redirige a la página de detalles del ticket para responder
-    navigate(`/responder-ticket/${id}`);
+    navigate(`/chat/${id}`);
   };
 
   return (
