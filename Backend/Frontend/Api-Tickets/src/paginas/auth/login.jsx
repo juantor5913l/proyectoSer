@@ -59,8 +59,8 @@ const Login = () => {
         navigate("/menu-principal");
       } else if (rolUsuario === "655a590e6d60ee6e6679f989") {
         navigate("/menu-cliente");
-      }else{
-        navigate("/menu-empleado")
+      } else {
+        navigate("/menu-empleado");
       }
     }
   };
@@ -92,6 +92,7 @@ const Login = () => {
                     onChange={onChange}
                     name="usu"
                     required
+                    autoComplete="off" // Desactivar el autocompletado
                   />
                   <label className="form-label" htmlFor="usu">
                     Usuario
@@ -108,6 +109,7 @@ const Login = () => {
                     onChange={onChange}
                     name="cla"
                     required
+                    autoComplete="off" // Desactivar el autocompletado
                   />
                   <label className="form-label" htmlFor="cla">
                     Contraseña

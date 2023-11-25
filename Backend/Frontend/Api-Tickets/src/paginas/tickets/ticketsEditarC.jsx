@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import APIInvoke from "../../helpers/APIInvoke.js";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import mensajeConfirmacion from "../../helpers/mensajes.js";
 import Form from "react-bootstrap/Form";
 import dominios from "../../helpers/dominios.js";
 import LogoPrueba from '../../assets/img/logo2.jpg';
 
-const TicketsCrearC = () => {
+const TicketsEditarC = () => {
     const navigate = useNavigate();
     const cerrarSesion = () => {
         localStorage.removeItem("iduser");
@@ -18,87 +18,86 @@ const TicketsCrearC = () => {
     
         navigate("/");
       };
-  const userId = localStorage.getItem("iduser");
-  const initialCliente = userId ? userId : "-8";
-
-  const [ticket, setTicket] = useState({
-    categoria: "-8",
-    cliente: initialCliente,
-    correo: "",
-    asunto: "",
-    descripcion: "",
-    estado: dominios.ESTADO_TICKET_ABIERTO,
-  });
-  const clienteId = localStorage.getItem("iduser")
-
-  const { categoria, asunto, descripcion, correo } = ticket;
-  const [arregloCategorias, setArregloCategorias] = useState([]);
-
-  const comboCategoria = async () => {
-    try {
-      const response = await APIInvoke.invokeGET(`/api/categorias`);
-      setArregloCategorias(response);
-    } catch (error) {
-      console.error("Error al obtener las categorías:", error);
-    }
-  };
-
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setTicket((prevTicket) => ({
-      ...prevTicket,
-      [name]: value,
-    }));
-  };
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    await crear();
-  };
-
-  const crear = async () => {
-    try {
-      const body = {
-        idCategoria: ticket.categoria,
-        idCliente: ticket.cliente,
-        correoTicket: ticket.correo,
-        asuntoTicket: ticket.asunto,
-        descripcionTicket: ticket.descripcion,
-        estadoTicket: ticket.estado,
+      const { id } = useParams();
+      const clienteId = localStorage.getItem("iduser")
+    
+      const [ticket, setTicket] = useState({
+        categoria: "",
+        cliente: "",
+        correoTicket: "",
+        asunto: "",
+        descripcion: "",
+        estado: "",
+      });
+    
+      const { categoria, correoTicket, asunto, descripcion } = ticket;
+      const [arregloCategorias, setArregloCategorias] = useState([]);
+    
+      const comboCategoria = async () => {
+        try {
+          const response = await APIInvoke.invokeGET(`/api/categorias`);
+          setArregloCategorias(response);
+        } catch (error) {
+          console.error("Error al obtener las categorías:", error);
+        }
       };
-
-      const response = await APIInvoke.invokePOST(`/api/tickets/crear-tickets`, body);
-      console.log("Respuesta del servidor:", response);
-
-      if (response.ok === "SI") {
-        mensajeConfirmacion("success", "Ticket creado exitosamente.");
-        navigate("/tickets-cliente/${clienteId}");
-      } else {
-        mensajeConfirmacion("error", response.msg || "Hubo un error al crear el ticket.");
-      }
-
-      resetForm();
-    } catch (error) {
-      console.error("Error al crear el ticket:", error);
-      mensajeConfirmacion("error", "Hubo un error al crear el ticket.");
-    }
-  };
-
-  const resetForm = () => {
-    setTicket({
-      categoria: "-8",
-      cliente: initialCliente,
-      correo: "",
-      asunto: "",
-      descripcion: "",
-      estado: dominios.ESTADO_TICKET_ABIERTO,
-    });
-  };
-
-  useEffect(() => {
-    comboCategoria();
-    document.getElementById("categoria").focus();
-  }, []);
+    
+      const obtenerTicket = async () => {
+        try {
+          const response = await APIInvoke.invokeGET(`/api/tickets/${id}`);
+          setTicket(response);
+        } catch (error) {
+          console.error("Error al obtener el ticket:", error);
+          mensajeConfirmacion("error", "Error al obtener el ticket");
+        }
+      };
+    
+      useEffect(() => {
+        obtenerTicket();
+        document.getElementById("asunto").focus();
+      }, []);
+    
+      const onChange = (e) => {
+        setTicket({
+          ...ticket,
+          [e.target.name]: e.target.value,
+        });
+      };
+    
+      const onSubmit = async (e) => {
+        e.preventDefault();
+        await editarTicket();
+      };
+    
+      const editarTicket = async () => {
+        try {
+          const body = {
+            idCategoria: ticket.categoria,
+            idCliente: ticket.cliente,
+            correoTicket: ticket.correoTicket,
+            asuntoTicket: ticket.asunto,
+            descripcionTicket: ticket.descripcion,
+            estadoTicket: ticket.estado,
+          };
+    
+          const response = await APIInvoke.invokePUT(`/api/tickets/${id}`, body);
+    
+          if (response.ok === "SI") {
+            mensajeConfirmacion("success", response.msg);
+            navigate("/tickets-cliente/${clienteId");
+          } else {
+            mensajeConfirmacion("error", response.msg);
+          }
+        } catch (error) {
+          console.error("Error al editar el ticket:", error);
+          mensajeConfirmacion("error", "Error al editar el ticket");
+        }
+      };
+    
+      useEffect(() => {
+        comboCategoria();
+        document.getElementById("categoria").focus();
+      }, []);
 
   return (
     
@@ -191,13 +190,13 @@ const TicketsCrearC = () => {
         
          </div>
          </div>
-      <section className="section">
+         <section className="section">
         <div className="row">
           <div className="col-lg-12">
             <div className="card">
               <form onSubmit={onSubmit}>
                 <div className="card-body">
-                  <h5 className="card-title">Crear Tickets</h5>
+                  <h5 className="card-title">Editar Tickets</h5>
 
                   <div className="row mb-3">
                     <label htmlFor="categoria" className="col-sm-2 col-form-label">
@@ -217,8 +216,8 @@ const TicketsCrearC = () => {
                           <option key={opcion._id} value={opcion._id}>
                             {opcion.nombreCategoria}
                           </option>
-                        ))}
-                      </Form.Select>
+                       ))}
+                       </Form.Select>
                     </div>
                   </div>
 
@@ -231,8 +230,8 @@ const TicketsCrearC = () => {
                         type="email"
                         className="form-control"
                         id="correo"
-                        name="correo"
-                        value={correo}
+                        name="correoTicket"
+                        value={correoTicket}
                         onChange={onChange}
                         required
                       />
@@ -272,14 +271,15 @@ const TicketsCrearC = () => {
                       ></textarea>
                     </div>
                   </div>
-                </div>
-                <div className="card-footer">
-                  <button type="submit" className="btn btn-primary">
-                    Guardar
-                  </button>
-                  <button type="reset" className="btn btn-default float-right">
-                    Cancelar
-                  </button>
+
+                  <div className="card-footer">
+                    <button type="submit" className="btn btn-primary">
+                      Guardar
+                    </button>
+                    <button type="reset" className="btn btn-default float-right">
+                      Cancelar
+                    </button>
+                  </div>
                 </div>
               </form>
             </div>
@@ -291,4 +291,4 @@ const TicketsCrearC = () => {
   );
 };
 
-export default TicketsCrearC;
+export default TicketsEditarC;

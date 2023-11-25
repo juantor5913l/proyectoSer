@@ -36,22 +36,22 @@ app.use(cors({
 // Resto de tu código...
 
 // Manejo de conexiones de socket
+// Manejo de conexiones de socket
 io.on('connection', (socket) => {
   console.log('Usuario conectado:', socket.id);
 
   // Manejar mensajes de chat
   socket.on('chat message', (msg) => {
-    // Emitir el mensaje al socket que lo envió
-    socket.emit('chat message', msg);
-    
-    // Emitir el mensaje al resto de los sockets conectados
-    socket.broadcast.emit('chat message', msg);
+    // Emitir el mensaje a todos los sockets conectados, incluido el emisor
+    io.emit('chat message', msg);
   });
 
   // Manejar desconexiones
   socket.on('disconnect', () => {
     console.log('Usuario desconectado:', socket.id);
   });
+
+
 });
 
 // Rutas de Express

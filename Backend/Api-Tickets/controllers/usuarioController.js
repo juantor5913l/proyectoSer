@@ -2,11 +2,24 @@ import Usuario from "../models/usuario.js";
 import generarJWT from "../helpers/generarJWT.js";
 
 const agregar = async (req, res) => {
-  const { usuarioAcceso } = req.body;
+  const { usuarioAcceso, contrasena } = req.body;
   const existeusuario = await Usuario.findOne({ usuarioAcceso });
 
   if (existeusuario) {
-    const error = new Error("Usuario ya esta registrado enla bse de datos");
+    const error = new Error("Usuario ya está registrado en la base de datos");
+    return res.status(400).json({ msg: error.message, ok: "NO" });
+  }
+
+  // Validar longitud mínima de la contraseña
+  if (contrasena.length < 6) {
+    const error = new Error("La contraseña debe tener al menos 6 caracteres");
+    return res.status(400).json({ msg: error.message, ok: "NO" });
+  }
+
+  // Validar la presencia de al menos dos letras mayúsculas
+  const mayusculas = contrasena.match(/[A-Z]/g);
+  if (!mayusculas || mayusculas.length < 2) {
+    const error = new Error("La contraseña debe tener al menos dos letras mayúsculas");
     return res.status(400).json({ msg: error.message, ok: "NO" });
   }
 
@@ -20,6 +33,8 @@ const agregar = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    // Manejo de errores durante el proceso de guardado en la base de datos
+    res.status(500).json({ msg: "Error interno del servidor", ok: "NO" });
   }
 };
 

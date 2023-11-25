@@ -1,7 +1,7 @@
 import React from "react";
 import mensajeConfirmacion from "../helpers/mensajes";
 import { useNavigate } from "react-router-dom";
-import '../assets/css/bootstrap.min.css'
+
 import '../assets/css/style.css'
 
 const DashBoardC = () => {

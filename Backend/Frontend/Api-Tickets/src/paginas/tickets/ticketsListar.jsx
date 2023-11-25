@@ -185,6 +185,7 @@ const TicketsCliente = () => {
                       <th style={{ width: "30%", textAlign: "center" }}>
                         Descripcion del ticket
                       </th>
+                      
                       <th style={{ width: "30%", textAlign: "center" }}>
                         Categoria
                       </th>
@@ -226,7 +227,7 @@ const TicketsCliente = () => {
                         </td>
                         <td style={{ textAlign: "center" }}>
                           <Link
-                            to={`/tickets-editar/${elemento._id}`}
+                            to={`/tickets-editarC/${elemento._id}`}
                             className="btn btn-primary btn-sm"
                           >
                             <i

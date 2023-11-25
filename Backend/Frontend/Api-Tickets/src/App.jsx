@@ -26,6 +26,8 @@ import TicketsCrearE from "./paginas/tickets/ticketsCrearE";
 import TicketsCrearC from "./paginas/tickets/ticketsCrearC";
 import TicketsCliente from "./paginas/tickets/ticketsListar";
 import ChatComponent from "./paginas/tickets/responderTickets";
+import ChatComponentE from './paginas/tickets/responderTicketE';
+import TicketsEditarC from "./paginas/tickets/ticketsEditarC";
 
 function App() {
   return (
@@ -49,6 +51,7 @@ function App() {
           <Route path="/tickets-admin" element={<TicketsAdmin />} />
           <Route path="/tickets-crear" element={<TicketsCrear />} />
           <Route path="/tickets-editar/:id" element={<TicketEditar />} />
+          <Route path="/tickets-editarC/:id" element={<TicketsEditarC />} />
           <Route path="/bandeja-entrada" element={<BandejaEntrada />} />
           <Route path="/responder-ticket/:id" element={<DetallesTicket />} />
           <Route path="/menu-cliente" element={<DashBoardC />} />
@@ -59,6 +62,7 @@ function App() {
           <Route path="/tickets-crearC" element={<TicketsCrearC />} />
           <Route path="/tickets-cliente/:clienteId" element={<TicketsCliente />} />
           <Route path="/chat/:id" element={<ChatComponent />} />
+          <Route path="/chat/empleado/:id" element={<ChatComponentE />} />
 
         </Routes>
       </Router>

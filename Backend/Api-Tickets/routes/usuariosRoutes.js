@@ -1,4 +1,5 @@
 import express from "express";
+
 import {
   agregar,
   listar,
@@ -18,6 +19,7 @@ router.get("/:id", validarAutenticacion, listarUno);
 router.post("/", validarAutenticacion, agregar);
 router.put("/:id", validarAutenticacion, editar);
 router.delete("/:id", validarAutenticacion, eliminar);
+
 
 /* Crear una ruta para el inicio de sesión y crear una cuenta. publico*/
 router.post("/login", autenticar);

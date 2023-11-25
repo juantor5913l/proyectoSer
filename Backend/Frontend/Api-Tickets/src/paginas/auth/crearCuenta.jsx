@@ -12,7 +12,7 @@ const CrearCuenta = () => {
     correo: "",
     nombreusuario: "",
     clave: "",
-    tipoUsuario:'Cliente',
+    tipoUsuario: 'Cliente',
     estado: config.api.estadoUsuarioActivo,
   });
 
@@ -35,20 +35,33 @@ const CrearCuenta = () => {
   };
 
   const crearCuenta = async () => {
+    const { nombre, celular, correo, nombreusuario, clave } = usuario;
+
+    // Validar longitud mínima de la contraseña
+    if (clave.length < 6) {
+      mensajeConfirmacion("error", "La contraseña debe tener al menos 6 caracteres");
+      return;
+    }
+
+    // Validar la presencia de al menos dos letras mayúsculas
+    const mayusculas = clave.match(/[A-Z]/g);
+    if (!mayusculas || mayusculas.length < 2) {
+      mensajeConfirmacion("error", "La contraseña debe tener al menos dos letras mayúsculas");
+      return;
+    }
+
     const body = {
       idRol: usuario.idRol,
-      nombresUsuario: usuario.nombre,
-      celularUsuario: usuario.celular,
-      correoUsuario: usuario.correo,
-      usuarioAcceso: usuario.nombreusuario,
-      claveAcceso: usuario.clave,
+      nombresUsuario: nombre,
+      celularUsuario: celular,
+      correoUsuario: correo,
+      usuarioAcceso: nombreusuario,
+      claveAcceso: clave,
       tipoUsuario: usuario.tipoUsuario,
       estadoUsuario: usuario.estado,
     };
-    const response = await APIInvoke.invokePOST(
-      `/api/usuarios/crear-cuenta`,
-      body
-    );
+
+    const response = await APIInvoke.invokePOST(`/api/usuarios/crear-cuenta`, body);
 
     if (response.ok === "SI") {
       mensajeConfirmacion("success", response.msg);
@@ -59,7 +72,7 @@ const CrearCuenta = () => {
         correo: "",
         nombreusuario: "",
         clave: "",
-        tipoUsuario:'Cliente',
+        tipoUsuario: 'Cliente',
       });
     } else {
       mensajeConfirmacion("error", response.msg);
@@ -72,16 +85,6 @@ const CrearCuenta = () => {
           <div className="container">
             <div className="row justify-content-center">
               <div className="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-                {/* <div className="d-flex justify-content-center py-4">
-                <a
-                  href="index.html"
-                  className="logo d-flex align-items-center w-auto"
-                >
-                  <img src="assets/img/logo.png" alt />
-                  <span className="d-none d-lg-block">NiceAdmin</span>
-                </a>
-              </div> */}
-                {/* End Logo */}
                 <div className="card mb-3">
                   <div className="card-body">
                     <div className="pt-4 pb-2">
@@ -110,6 +113,7 @@ const CrearCuenta = () => {
                             value={nombre}
                             onChange={onChange}
                             required
+                            autoComplete="off" // Desactivar el autocompletado
                           />
                           <div className="invalid-feedback">
                             Please enter your username.
@@ -131,6 +135,7 @@ const CrearCuenta = () => {
                             value={celular}
                             onChange={onChange}
                             required
+                            autoComplete="off" // Desactivar el autocompletado
                           />
                           <div className="invalid-feedback">
                             Please enter your username.
@@ -152,6 +157,7 @@ const CrearCuenta = () => {
                             value={correo}
                             onChange={onChange}
                             required
+                            autoComplete="off" // Desactivar el autocompletado
                           />
                           <div className="invalid-feedback">
                             Please enter your username.
@@ -173,6 +179,7 @@ const CrearCuenta = () => {
                             value={nombreusuario}
                             onChange={onChange}
                             required
+                            autoComplete="off" // Desactivar el autocompletado
                           />
                           <div className="invalid-feedback">
                             Please enter your username.
@@ -193,6 +200,7 @@ const CrearCuenta = () => {
                           value={clave}
                           onChange={onChange}
                           required
+                          autoComplete="off" // Desactivar el autocompletado
                         />
                         <div className="invalid-feedback">
                           Please enter your password!

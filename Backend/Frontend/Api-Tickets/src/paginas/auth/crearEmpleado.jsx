@@ -72,16 +72,6 @@ const CrearCuentaEmpleado = () => {
           <div className="container">
             <div className="row justify-content-center">
               <div className="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-                {/* <div className="d-flex justify-content-center py-4">
-                <a
-                  href="index.html"
-                  className="logo d-flex align-items-center w-auto"
-                >
-                  <img src="assets/img/logo.png" alt />
-                  <span className="d-none d-lg-block">NiceAdmin</span>
-                </a>
-              </div> */}
-                {/* End Logo */}
                 <div className="card mb-3">
                   <div className="card-body">
                     <div className="pt-4 pb-2">
@@ -110,6 +100,7 @@ const CrearCuentaEmpleado = () => {
                             value={nombre}
                             onChange={onChange}
                             required
+                            autoComplete="off" // Desactivar el autocompletado
                           />
                           <div className="invalid-feedback">
                             Please enter your username.
@@ -131,6 +122,7 @@ const CrearCuentaEmpleado = () => {
                             value={celular}
                             onChange={onChange}
                             required
+                            autoComplete="off" // Desactivar el autocompletado
                           />
                           <div className="invalid-feedback">
                             Please enter your username.
@@ -152,6 +144,7 @@ const CrearCuentaEmpleado = () => {
                             value={correo}
                             onChange={onChange}
                             required
+                            autoComplete="off" // Desactivar el autocompletado
                           />
                           <div className="invalid-feedback">
                             Please enter your username.
@@ -173,6 +166,7 @@ const CrearCuentaEmpleado = () => {
                             value={nombreusuario}
                             onChange={onChange}
                             required
+                            autoComplete="off" // Desactivar el autocompletado
                           />
                           <div className="invalid-feedback">
                             Please enter your username.
@@ -193,6 +187,7 @@ const CrearCuentaEmpleado = () => {
                           value={clave}
                           onChange={onChange}
                           required
+                          autoComplete="off" // Desactivar el autocompletado
                         />
                         <div className="invalid-feedback">
                           Please enter your password!

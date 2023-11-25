@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import ContentHeader from "../../componentes/contentHeader.jsx";
-import Navbar from "../../componentes/navbar.jsx";
-import SidebarContainer from "../../componentes/sidebarContainer.jsx";
 import APIInvoke from "../../helpers/APIInvoke.js";
 import { Link, useNavigate } from "react-router-dom";
 import mensajeConfirmacion from "../../helpers/mensajes.js";

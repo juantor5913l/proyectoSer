@@ -81,27 +81,7 @@ const DashBoard = () => {
   <main className="main-content position-relative border-radius-lg ">
     <div className="container-fluid py-4">
       <div className="row">
-        <div className="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div className="card">
-            <div className="card-body p-3">
-              <div className="row">
-                <div className="col-8">
-                  <div className="numbers">
-                    <p className="text-sm mb-0 text-uppercase font-weight-bold">Roles</p>
-                          <span className="text-muted small pt-2 ps-1">
-                            <Link to={"/roles-admin"}>Listado Roles</Link>
-                          </span>
-                  </div>
-                </div>
-                <div className="col-4 text-end">
-                  <div className="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                  <i class="bi bi-person-rolodex"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
         <div className="col-xl-3 col-sm-6 mb-xl-0 mb-4">
           <div className="card">
             <div className="card-body p-3">

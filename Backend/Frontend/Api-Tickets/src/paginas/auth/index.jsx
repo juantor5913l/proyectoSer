@@ -59,15 +59,15 @@ const Index = () => {
                 <div className="col">
                   <div className="detail-box">
                     <div>
-                      <h2>
+                      <h1>
                         Bienvenido a
-                      </h2>
+                      </h1>
                       <h1>
                         serviplus
                       </h1>
-                      <p>
+                      <h3>
                       Sistema de informacion para la creacion de tickets
-                      </p>
+                      </h3>
                       
                     </div>
                   </div>
