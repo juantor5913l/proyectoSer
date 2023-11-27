@@ -35,36 +35,55 @@ const CrearCuentaEmpleado = () => {
   };
 
   const crearCuenta = async () => {
+    const { nombre, celular, correo, nombreusuario, clave } = usuario;
+
+    // Validar longitud mínima de la contraseña
+    if (clave.length < 6) {
+        mensajeConfirmacion("error", "La contraseña debe tener al menos 6 caracteres");
+        return;
+    }
+
+    // Validar la presencia de al menos dos letras mayúsculas
+    const mayusculas = clave.match(/[A-Z]/g);
+    if (!mayusculas || mayusculas.length < 2) {
+        mensajeConfirmacion("error", "La contraseña debe tener al menos dos letras mayúsculas");
+        return;
+    }
+
+    // Validar que el correo y el nombre de usuario coincidan
+    if (correo !== nombreusuario) {
+        mensajeConfirmacion("error", "Los correos no coinciden");
+        return;
+    }
+
     const body = {
-      idRol: usuario.idRol,
-      nombresUsuario: usuario.nombre,
-      celularUsuario: usuario.celular,
-      correoUsuario: usuario.correo,
-      usuarioAcceso: usuario.nombreusuario,
-      claveAcceso: usuario.clave,
-      tipoUsuario: usuario.tipoUsuario,
-      estadoUsuario: usuario.estado,
+        idRol: usuario.idRol,
+        nombresUsuario: nombre,
+        celularUsuario: celular,
+        correoUsuario: correo,
+        usuarioAcceso: nombreusuario,
+        claveAcceso: clave,
+        tipoUsuario: usuario.tipoUsuario,
+        estadoUsuario: usuario.estado,
     };
-    const response = await APIInvoke.invokePOST(
-      `/api/usuarios/crear-cuenta`,
-      body
-    );
+
+    const response = await APIInvoke.invokePOST(`/api/usuarios/crear-cuenta`, body);
 
     if (response.ok === "SI") {
-      mensajeConfirmacion("success", response.msg);
+        mensajeConfirmacion("success", response.msg);
 
-      setUsuario({
-        nombre: "",
-        celular: "",
-        correo: "",
-        nombreusuario: "",
-        clave: "",
-        tipoUsuario: 'Empleado',
-      });
+        setUsuario({
+            nombre: "",
+            celular: "",
+            correo: "",
+            nombreusuario: "",
+            clave: "",
+            tipoUsuario: 'Cliente',
+        });
     } else {
-      mensajeConfirmacion("error", response.msg);
+        mensajeConfirmacion("error", response.msg);
     }
-  };
+};
   return (
     <main>
       <div className="container">
@@ -160,7 +179,7 @@ const CrearCuentaEmpleado = () => {
                           <input
                             type="email"
                             className="form-control"
-                            placeholder="Ingrese su usuario de Acceso"
+                            placeholder="Confirma tu correo"
                             id="nombreusuario"
                             name="nombreusuario"
                             value={nombreusuario}
@@ -169,7 +188,7 @@ const CrearCuentaEmpleado = () => {
                             autoComplete="off" // Desactivar el autocompletado
                           />
                           <div className="invalid-feedback">
-                            Please enter your username.
+                            Confirma tu correo
                           </div>
                         </div>
                       </div>

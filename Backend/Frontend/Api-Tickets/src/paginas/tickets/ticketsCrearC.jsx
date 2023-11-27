@@ -55,6 +55,7 @@ const TicketsCrearC = () => {
     e.preventDefault();
     await crear();
   };
+  
 
   const crear = async () => {
     try {

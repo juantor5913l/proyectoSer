@@ -15,7 +15,10 @@ const agregar = async (req, res) => {
     const error = new Error("La contraseña debe tener al menos 6 caracteres");
     return res.status(400).json({ msg: error.message, ok: "NO" });
   }
-
+  if(correo != nombreusuario ){
+    const error = new Error("Los correos no coinciden");
+    return res.status(400).json({ msg: error.message, ok: "NO" });
+  }
   // Validar la presencia de al menos dos letras mayúsculas
   const mayusculas = contrasena.match(/[A-Z]/g);
   if (!mayusculas || mayusculas.length < 2) {
